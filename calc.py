@@ -3,6 +3,7 @@
 # При помощи условного оператора if и ephem.constellation научите бота отвечать, в каком созвездии сегодня находится планета.
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import telegram
 import ephem
 import datetime
 from key import tgrf_key
@@ -66,6 +67,9 @@ def talk_to_me(bot, update):
 
 def calc(bot, update):
     text=update.message.text.replace("/calc","").strip()
+    # custom_keyboard = [['top-left', 'top-right'], ['bottom-left', 'bottom-right']]
+    # reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
+    # bot.send_message(chat_id=chat_id, text="Custom Keyboard Test", reply_markup=reply_markup)
     if text.endswith("="):
         if "+" in text:
             sym_arr=text.replace("=","").split("+")
@@ -79,6 +83,7 @@ def calc(bot, update):
         elif "/" in text:
             sym_arr=text.replace("=","").split("/")
             val=int(sym_arr[0].strip())/int(sym_arr[1].strip())
+
     update.message.reply_text("Результат: "+str(val))
 
 def main():
